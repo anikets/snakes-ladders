@@ -9,13 +9,7 @@ const styles = {
   title: {
     flex: 1,
     fontSize: '1.5rem',
-    margin: '1rem'
-  },
-  date: {
-    flex: 1,
-    textAlign: 'right',
-    margin: '1rem',
-    color: 'white'
+    margin: '0.4rem'
   }
 };
 
@@ -24,7 +18,7 @@ export class Header extends Component {
     return (
       <header style={styles.header}>
         <p style={styles.title}>
-          <a href="https://github.com/FountainJS/generator-fountain-webapp" target="_blank" rel="noopener noreferrer">
+          <a href="#">
             Snakes &amp; Ladders
           </a>
         </p>

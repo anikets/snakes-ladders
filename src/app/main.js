@@ -1,6 +1,6 @@
 import React, {Component} from 'react';
 import {Header} from './header';
-import {Board} from './snl/board';
+import {Game} from './snl/game';
 import {Footer} from './footer';
 
 const styles = {
@@ -22,7 +22,7 @@ export class Main extends Component {
       <div style={styles.container}>
         <Header/>
         <main style={styles.main}>
-          <Board/>
+          <Game/>
         </main>
         <Footer/>
       </div>

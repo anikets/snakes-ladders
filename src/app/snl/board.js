@@ -41,7 +41,7 @@ export class Board extends Component {
       }
     }
     return (
-      <div className="board">
+      <div className="board clearfix">
         {blocks}
       </div>
     );
