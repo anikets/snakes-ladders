@@ -25,11 +25,8 @@ export class Header extends Component {
       <header style={styles.header}>
         <p style={styles.title}>
           <a href="https://github.com/FountainJS/generator-fountain-webapp" target="_blank" rel="noopener noreferrer">
-            Fountain Generator
+            Snakes &amp; Ladders
           </a>
-        </p>
-        <p style={styles.date}>
-          Generated with FountainJS v1.0.0 on Thu Mar 16 2017 21:58:38 GMT+0530 (IST)
         </p>
       </header>
     );
