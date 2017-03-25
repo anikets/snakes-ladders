@@ -8,7 +8,6 @@ export class Board extends Component {
       size: 10,  // Number of rows or columns on the board
       board: [],
       playerPosition: 0,
-      currentPosRow: 0,
       diceValue: 0
     };
     // This binding is necessary to make `this` work in the callback
@@ -39,20 +38,16 @@ export class Board extends Component {
   handleRollDice() {
     const boardCopy = this.state.board;
     const diceValuee = this.getRandomIntInclusive(1, 6);
-    const newPosition = this.state.playerPosition + diceValuee;
-    let row = this.state.currentPosRow;
-    let column = newPosition - 1;
+    let newPosition = this.state.playerPosition + diceValuee;
     this.setState({diceValue: diceValuee});
-    if (newPosition > this.state.size * (this.state.currentPosRow + 1)) {
-      row++;
-      this.setState({currentPosRow: row});
-    }
-    column = (column % (this.state.size - 1)) - 1;
     if (newPosition > 100) {
       return;
     }
-    boardCopy[row][this.state.playerPosition].playerPresent = false;
-    boardCopy[row][column].playerPresent = true;
+    if (!this.state.playerPosition) {
+      newPosition -= 1;
+    }
+    boardCopy[this.state.playerPosition].playerPresent = false;
+    boardCopy[newPosition].playerPresent = true;
     this.setState({board: boardCopy});
     this.setState({playerPosition: newPosition});
   }
@@ -62,13 +57,13 @@ export class Board extends Component {
     let param = this.state.size * this.state.size;
     const temp = [];
     for (let row = 0; row < this.state.size; row++) {
-      if (row % 2 === 0) {
-        for (let col = 0; col < this.state.size; col++) {
+      if (row % 2) {
+        for (let col = this.state.size - 1; col >= 0; col--) {
           temp.push(param - col);
           blocks.push(this.renderBlock(this.state.board[param - col - 1].value));
         }
       } else {
-        for (let col = this.state.size - 1; col >= 0; col--) {
+        for (let col = 0; col < this.state.size; col++) {
           temp.push(param - col);
           blocks.push(this.renderBlock(this.state.board[param - col - 1].value));
         }
@@ -76,13 +71,15 @@ export class Board extends Component {
       param -= this.state.size;
     }
     return (
-      <div className="board clearfix">
-        {blocks}
+      <div className="board">
+        <div className="clearfix">
+          {blocks}
+        </div>
         <div className="legend clearfix">
-          <div className="player-one">1</div>
-          <div>{this.state.playerPosition}</div>
+          <span className="player-one">1</span>
+          <span> Current player position: {this.state.playerPosition}</span>
           <div className="f-right">
-            {this.state.diceValue}
+            Rolled: {this.state.diceValue} &nbsp;
             <button className="btn" onClick={this.handleRollDice}>Roll Dice</button>
           </div>
         </div>
