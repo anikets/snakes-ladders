@@ -17,22 +17,17 @@ export class Board extends Component {
 
   componentWillMount() {
     const tempBoard = [];
-    let param = 0;
-    for (let count = 0; count < this.state.size; count++) {
-      tempBoard[count] = [];
-      for (let innerCount = 0; innerCount < this.state.size; innerCount++) {
-        param++;
-        tempBoard[count][innerCount] = {
-          value: param,
-          playerPresent: false
-        };
-      }
+    for (let count = 0; count < this.state.size * this.state.size; count++) {
+      tempBoard[count] = {
+        value: count + 1,
+        playerPresent: false
+      };
     }
     this.setState({board: tempBoard});
   }
 
-  renderBlock(count, row, col) {
-    return <Block value={count} playerPresent={this.state.board[row][col].playerPresent}/>;
+  renderBlock(count) {
+    return <Block value={count} playerPresent={this.state.board[count - 1].playerPresent}/>;
   }
 
   getRandomIntInclusive(min, max) {
@@ -64,16 +59,21 @@ export class Board extends Component {
 
   render() {
     const blocks = [];
-    for (let count = this.state.size - 1; count >= 0; count--) {
-      if (count % 2 === 0) {
-        for (let innerCount = this.state.size - 1; innerCount >= 0; innerCount--) {
-          blocks.push(this.renderBlock(this.state.board[count][innerCount].value, count, innerCount));
+    let param = this.state.size * this.state.size;
+    const temp = [];
+    for (let row = 0; row < this.state.size; row++) {
+      if (row % 2 === 0) {
+        for (let col = 0; col < this.state.size; col++) {
+          temp.push(param - col);
+          blocks.push(this.renderBlock(this.state.board[param - col - 1].value));
         }
       } else {
-        for (let innerCount = 0; innerCount < this.state.size; innerCount++) {
-          blocks.push(this.renderBlock(this.state.board[count][innerCount].value, count, innerCount));
+        for (let col = this.state.size - 1; col >= 0; col--) {
+          temp.push(param - col);
+          blocks.push(this.renderBlock(this.state.board[param - col - 1].value));
         }
       }
+      param -= this.state.size;
     }
     return (
       <div className="board clearfix">

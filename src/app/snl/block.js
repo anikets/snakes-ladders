@@ -7,7 +7,6 @@ export class Block extends Component {
       <div className="block">
         {this.props.value}
         <span className={this.props.playerPresent ? 'player-one' : ''}/>
-        <span>{this.props.playerPresent.toString()}</span>
       </div>
     );
   }
