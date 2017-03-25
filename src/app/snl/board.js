@@ -40,7 +40,7 @@ export class Board extends Component {
     const diceValuee = this.getRandomIntInclusive(1, 6);
     let newPosition = this.state.playerPosition + diceValuee;
     this.setState({diceValue: diceValuee});
-    if (newPosition > 100) {
+    if (newPosition >= 100) {
       return;
     }
     if (!this.state.playerPosition) {
@@ -60,12 +60,12 @@ export class Board extends Component {
       if (row % 2) {
         for (let col = this.state.size - 1; col >= 0; col--) {
           temp.push(param - col);
-          blocks.push(this.renderBlock(this.state.board[param - col - 1].value));
+          blocks.push(this.renderBlock(param - col));
         }
       } else {
         for (let col = 0; col < this.state.size; col++) {
           temp.push(param - col);
-          blocks.push(this.renderBlock(this.state.board[param - col - 1].value));
+          blocks.push(this.renderBlock(param - col));
         }
       }
       param -= this.state.size;
