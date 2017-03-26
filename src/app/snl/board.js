@@ -12,8 +12,8 @@ export class Board extends Component {
       diceValue: 0,
       hasWon: false,
       ladders: [
-        [1, 38], [4, 14], [9, 31], [21, 42], [28, 84], [51, 67], [71, 91], [80, 100],
-        [17, 7], [54, 34], [64, 60], [87, 24], [93, 73], [95, 75], [98, 79]
+        [1, 38], [4, 14], [9, 31], [21, 42], [28, 84], [51, 67], [71, 91], [80, 100],  // Ladders
+        [17, 7], [54, 34], [64, 60], [87, 24], [93, 73], [95, 75], [98, 79]  // Snakes
       ],
       diceRollCount: 0,
       ladderEncounterCount: 0,
@@ -65,14 +65,10 @@ export class Board extends Component {
     this.setState({diceValue: diceValuee});
     if (newPosition === 100) {
       this.setState({hasWon: true});
-      // newPosition -= 1;
     }
     if (newPosition > 100) {
       return;
     }
-    // if (!this.state.playerPosition) {  // Adjust index for first move.
-    //   newPosition -= 1;
-    // }
     if (this.state.playerPosition) {  // Adjust index for first move.
       boardCopy[this.state.playerPosition - 1].playerPresent = false;
     }
@@ -117,8 +113,8 @@ export class Board extends Component {
         <div className="legend clearfix">
           <span className="f-left">
             <span className="stat-mini">Moves: {this.state.diceRollCount}</span>
-            <span className="stat-mini">Snakes encountered: {this.state.snakeEncounterCount}</span>
             <span className="stat-mini">Ladders climbed: {this.state.ladderEncounterCount}</span>
+            <span className="stat-mini">Snakes encountered: {this.state.snakeEncounterCount}</span>
           </span>
           <span className={this.state.hasWon ? 'text-center win-msg' : 'text-center win-msg hidden'}>Congratulations ... you won!</span>
           <div className="f-right">
