@@ -100,6 +100,25 @@ a {
   position: absolute;
   transition: all 0.2s ease;
 }
+.player-present {
+  animation: bgswap 3s infinite linear;
+}
+@keyframes bgswap {
+  0% { background-color: yellow; }
+  33% { background-color: cyan; }
+  66% { background-color: lime; }
+  100% { background-color: yellow; }
+}
+.stat-mini {
+  font-size: 14px;
+  padding: 0 10px;
+}
+.stat-mini:first-child {
+  padding-left: 0;
+}
+.stat-mini:not(:last-child) {
+  border-right: solid 1px #aaa;
+}
 .legend {
   margin: 10px;
   text-align: center;

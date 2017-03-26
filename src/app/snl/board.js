@@ -1,5 +1,6 @@
 import React, {Component} from 'react';
 import {Block} from './block';
+import {Peg} from './peg';
 
 export class Board extends Component {
   constructor() {
@@ -60,7 +61,6 @@ export class Board extends Component {
     const diceValuee = this.getRandomIntInclusive(1, 6);
     let newPosition = this.state.playerPosition + diceValuee;
     const ladder = this.hasLadder(newPosition);
-    let dist = 0;
     this.setState({diceRollCount: ++this.state.diceRollCount});
     this.setState({diceValue: diceValuee});
     if (newPosition === 100) {
@@ -73,22 +73,18 @@ export class Board extends Component {
     // if (!this.state.playerPosition) {  // Adjust index for first move.
     //   newPosition -= 1;
     // }
-    if (this.state.playerPosition) {
+    if (this.state.playerPosition) {  // Adjust index for first move.
       boardCopy[this.state.playerPosition - 1].playerPresent = false;
     }
-    dist = newPosition - this.state.playerPosition;
     if (ladder) {
-      console.info('has jump');
       newPosition = ladder[1];
       if (ladder[0] < ladder[1]) {
         this.setState({ladderEncounterCount: ++this.state.ladderEncounterCount});
       } else {
-        dist = this.state.playerPosition - newPosition;
         this.setState({snakeEncounterCount: ++this.state.snakeEncounterCount});
       }
     }
     this.setState({moveTo: newPosition});
-    console.log(this.state.moveTo, dist);
     boardCopy[newPosition - 1].playerPresent = true;
     this.setState({board: boardCopy});
     this.setState({playerPosition: newPosition});
@@ -116,11 +112,13 @@ export class Board extends Component {
       <div>
         <div className="board clearfix">
           {blocks}
+          <Peg pegClass="player-one animated" moveTo={this.state.moveTo}/>
         </div>
         <div className="legend clearfix">
           <span className="f-left">
-            Current player position: {this.state.playerPosition} | {this.state.diceRollCount}
-            | {this.state.snakeEncounterCount} | {this.state.ladderEncounterCount}
+            <span className="stat-mini">Moves: {this.state.diceRollCount}</span>
+            <span className="stat-mini">Snakes encountered: {this.state.snakeEncounterCount}</span>
+            <span className="stat-mini">Ladders climbed: {this.state.ladderEncounterCount}</span>
           </span>
           <span className={this.state.hasWon ? 'text-center win-msg' : 'text-center win-msg hidden'}>Congratulations ... you won!</span>
           <div className="f-right">

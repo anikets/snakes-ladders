@@ -4,9 +4,8 @@ export class Block extends Component {
 
   render() {
     return (
-      <div className="block">
+      <div className={this.props.playerPresent ? 'block player-present' : 'block'}>
         {this.props.value}
-        <span className={this.props.playerPresent ? 'player-one' : ''}/>
       </div>
     );
   }
