@@ -137,3 +137,46 @@ a {
   text-align: center;
   text-shadow: 1px 1px 1px yellow, 2px 2px 1px yellow, -1px -1px 1px yellow, -2px -2px 1px yellow;
 }
+
+.ladder {
+  width: 30px;
+  height: 210px;
+  background-image: url(http://anikets.github.io/assets/ladder-tx.png);
+  background-size: 100%;
+  position: absolute;
+  left: 6%;
+  transform: rotateZ(55deg);
+  bottom: 0;
+  transform-origin: bottom right;
+}
+.snake {
+  width: 10px;
+  height: 300px;
+  background-color: red;
+  background-size: 100%;
+  position: absolute;
+  left: 61%;
+  -webkit-transform: rotateZ(-55deg);
+  transform: rotateZ(-80deg);
+  bottom: 15px;
+  -webkit-transform-origin: bottom right;
+  transform-origin: bottom right;
+  border-radius: 100%;
+}
+.snake:before {
+  content: ' ';
+  display: block;
+  width: 15px;
+  height: 15px;
+  background-color: #000;
+  border: solid 2px #fff;
+  border-bottom: 0;
+  border-top-left-radius: 10px;
+  border-top-right-radius: 10px;
+  border-bottom-left-radius: 7px;
+  border-bottom-right-radius: 7px;
+  position: absolute;
+  top: 0;
+  right: 50%;
+  transform: translateX(50%);
+}

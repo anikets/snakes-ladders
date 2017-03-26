@@ -1,5 +1,6 @@
 import React, {Component} from 'react';
 import {Block} from './block';
+import {Jump} from './jump';
 import {Peg} from './peg';
 
 export class Board extends Component {
@@ -50,6 +51,14 @@ export class Board extends Component {
     return <Block key={count} value={count} playerPresent={this.state.board[count - 1].playerPresent}/>;
   }
 
+  renderJump() {
+    const jumpElements = [];
+    this.state.ladders.forEach(val => {
+      jumpElements.push(<Jump start={val[0]} end={val[1]}/>);
+    });
+    return jumpElements;
+  }
+
   getRandomIntInclusive(min, max) {
     min = Math.ceil(min);
     max = Math.floor(max);
@@ -90,6 +99,7 @@ export class Board extends Component {
   }
 
   render() {
+    const jumps = this.renderJump();
     const blocks = [];
     let param = this.state.size * this.state.size;
     const temp = [];
@@ -111,6 +121,7 @@ export class Board extends Component {
       <div>
         <div className="board clearfix">
           {blocks}
+          {jumps}
           <Peg pegClass="player-one animated" moveTo={this.state.moveTo}/>
         </div>
         <div className="legend clearfix">
