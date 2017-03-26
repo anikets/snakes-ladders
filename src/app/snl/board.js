@@ -80,6 +80,9 @@ export class Board extends Component {
         this.setState({snakeEncounterCount: ++this.state.snakeEncounterCount});
       }
     }
+    if (newPosition === 100) {
+      this.setState({hasWon: true});
+    }
     this.setState({moveTo: newPosition});
     boardCopy[newPosition - 1].playerPresent = true;
     this.setState({board: boardCopy});
